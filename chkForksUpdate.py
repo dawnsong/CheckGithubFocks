@@ -56,7 +56,7 @@ for fork in allForks:
 
             #check my current rate limit to github.com
             #https://docs.github.com/en/rest/reference/rate-limit
-            os.system('curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit 1>&2')
+            os.system('curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit |~/bin/jq ".rate" 1>&2')
 
 
             #retry with one or 2 more minutes waiting
@@ -64,7 +64,7 @@ for fork in allForks:
             logging.info("%d : %s, wait %d seconds more\n" % (counter,href , frandsec))
             sleep(frandsec)
     print("%s : %s" % (href, fdate))
-    randsec=randint(30,args.wait)
+    randsec=randint(60,args.wait)
     counter+=1
     logging.info("%d, wait %d seconds\n" % (counter, randsec))
     sleep(randsec)
