@@ -18,3 +18,6 @@ This will output:
 > /597477803/GraphSAGE : Sep 19, 2018  
 > /978007000/GraphSAGE : Sep 19, 2018  
 > ...
+
+## Todo
+Get the data through GraphQL API implemented by github, which was originated from Facebook
