@@ -4,8 +4,9 @@ Check the latest update date of all the forks of a specified github repository.<
 I want to know if anyone has translated GraphSAGE from tensorflow 1 with python2.7 to tensorflow 2.1 with python 3.7.
 
 ## Example
-Checking if anyone has made some changes on his own forks of Hamilton's GraphSAGE:
-python chkForksUpdate.py williamleif GraphSAGE
+Checking if anyone has made some changes on his own forks of Hamilton's GraphSAGE:   
+
+> python chkForksUpdate.py williamleif GraphSAGE
 
 This will output: 
 > #https://github.com/williamleif/GraphSAGE/network/members  
