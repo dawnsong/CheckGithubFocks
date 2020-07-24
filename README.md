@@ -6,7 +6,8 @@ I want to know if anyone has translated GraphSAGE from tensorflow 1 with python2
 ## Example
 Checking if anyone has made some changes on his own forks of Hamilton's GraphSAGE:   
 
-> python chkForksUpdate.py williamleif GraphSAGE
+> python -u chkForksUpdate.py williamleif GraphSAGE |tee williamleif-GraphSAGE.log 
+(note that python -u will not buffer any i/o, thus tee can write to file and terminal immediately)
 
 This will output: 
 > #https://github.com/williamleif/GraphSAGE/network/members  
