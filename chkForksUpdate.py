@@ -13,6 +13,7 @@ parser.add_argument('--host',  type=str, default='github.com',help='default is g
 parser.add_argument('--wait',  type=int, default=90,help='default is 30 seconds')
 parser.add_argument('--log',dest='loglevel',  default="INFO", help='default is INFO')
 parser.add_argument('--MaxRetry',  default=5, help='max retrying to request the url is 5')
+parser.add_argument('--token',   help='personal TOKEN for oauth')
 
 args=parser.parse_args()
 #print(args.user)
@@ -26,7 +27,11 @@ logging.basicConfig(level=nlevel4log)
 burl="https://%s/%s/%s/network/members" % (args.host, args.user, args.repo)
 print("# " + burl)
 
-htm=requests.get(burl).text
+#make github headers for oauth
+headers={'Authorization':'Bearer %s' % (args.token)}
+
+
+htm=requests.get(burl, headers=headers).text
 soup=BeautifulSoup(htm, 'html.parser')
 counter=0
 counter4failure=0
@@ -41,7 +46,7 @@ for fork in allForks:
     succ=False
     counter4failure=1
     while not succ and counter4failure<=args.MaxRetry:
-        fhtm=requests.get(furl).text
+        fhtm=requests.get(furl, headers=headers).text
         fsoup=BeautifulSoup(fhtm, 'html.parser')
         adate=fsoup.find('relative-time')
         fdate='none'
@@ -56,7 +61,8 @@ for fork in allForks:
 
             #check my current rate limit to github.com
             #https://docs.github.com/en/rest/reference/rate-limit
-            os.system('curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit |~/bin/jq ".rate" 1>&2')
+            os.system('curl -o /tmp/githubLimit.json -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit ')
+            os.system('jq ".rate" /tmp/githubLimit.json 1>&2')
 
 
             #retry with one or 2 more minutes waiting

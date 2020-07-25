@@ -19,5 +19,85 @@ This will output:
 > /978007000/GraphSAGE : Sep 19, 2018  
 > ...
 
+## check rate limit  
+> curl -o /tmp/githubLimit.json -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit 
+
 ## Todo
 Get the data through GraphQL API implemented by github, which was originated from Facebook
+
+## GraphQL
+GraphQL explorer: https://github.com/graphql/graphiql
+Endpoint: https://api.github.com/graphql
+Method: Post
+HTTP Headers: Authorization="Bearer TOKEN" 
+GraphQL: 
+> query {
+>    repository(owner:"williamleif", name:"GraphSAGE"){    
+>     forks(first:10, orderBy:{field:PUSHED_AT	, direction:DESC}) {
+>       totalCount  	
+>       edges{
+>         node{
+>           nameWithOwner
+>           url
+>           updatedAt
+>           pushedAt                      
+>           ... on Repository{
+>             databaseId
+>             id
+>             forkCount
+>             isFork
+>           }
+>         }      
+>         cursor
+>       }
+>       
+> 	    pageInfo {
+>         endCursor
+>         hasNextPage
+>   	  }
+>     }
+>     
+>   }
+> }
+
+----------------
+> query {
+>    repository(owner:"williamleif", name:"GraphSAGE"){    
+>     forks(first:10, orderBy:{field:PUSHED_AT	, direction:DESC}) {
+>       totalCount  
+>       
+>       edges{
+>         node{          
+>           nameWithOwner
+>           url
+>           updatedAt
+>           pushedAt                      
+>           ... on Repository{
+>             databaseId
+>             id
+>             forkCount
+>             isFork
+>             updatedAt
+>           }       
+>           object(expression: "master"){
+>             ... on Commit{
+>               history(first:1){
+>                 totalCount
+>                 nodes{
+>                   committedDate
+>                 }
+>               }
+>             }
+>           }
+>         }      
+>         cursor
+>       }
+>       
+> 	    pageInfo {
+>         endCursor
+>         hasNextPage
+>   	  }
+>     }
+>     
+>   }
+> }

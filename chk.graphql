@@ -1,0 +1,37 @@
+query(:String!){
+  repository(owner: "williamleif", name: "GraphSAGE") {
+    forks(first: 10, orderBy: {field: PUSHED_AT, direction: DESC}, after:) {
+      totalCount
+      edges {
+        node {
+          nameWithOwner
+          url
+          updatedAt
+          pushedAt
+          ... on Repository {
+            databaseId
+            id
+            forkCount
+            isFork
+            updatedAt
+          }
+          object(expression: "master") {
+            ... on Commit {
+              history(first: 1) {
+                totalCount
+                nodes {
+                  committedDate
+                }
+              }
+            }
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}
