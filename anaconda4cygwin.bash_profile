@@ -28,12 +28,12 @@ set -o igncr
 if [ ${CONDA_DEFAULT_ENV} ] && [ ${CONDA_DEFAULT_ENV} != 'base' ] 
 then
     #  SELECT ONE OF THE NON-DEFAULT ENVIRONMENTS
-    export CONDA_PREFIX=${CONDA_BASE_DIR}/envs/${CONDA_DEFAULT_ENV}
+    export CONDA_PREFIX=$(cygpath -w ${CONDA_BASE_DIR}/envs/${CONDA_DEFAULT_ENV})
 else
     #  SELECT THE DEFAULT ENVIRONMENT (and set CONDA_DEFAULT_ENV full path)
     #export CONDA_DEFAULT_ENV=root
     export CONDA_DEFAULT_ENV=base
-    export CONDA_PREFIX=${CONDA_BASE_DIR}
+    export CONDA_PREFIX=$(cygpath -w ${CONDA_BASE_DIR} )
 fi
 
 ###############################################################################
