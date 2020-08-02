@@ -41,12 +41,13 @@ fi
 #Define cyg-conda and cyg-activate to facilitate management of conda.
 
 alias cyg-conda=${CONDA_BASE_DIR}/Scripts/conda.exe
+cyg-conda info --envs
 
 cyg-activate() {
     export CONDA_DEFAULT_ENV=$1
     #source ~/.bash_profile
     source ~/anaconda4cygwin.bash_profile
-    cyg-conda info --envs
+    #cyg-conda info --envs
 }
 
 ###############################################################################
