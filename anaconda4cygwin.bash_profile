@@ -65,4 +65,5 @@ eot
 ###############################################################################
 
 # Set a prompt of:(CondaEnv) user@host and current_directory
-PS1='\[\e]0;\w\a\]\n'"\[\e[35m\]${CONDA_DEFAULT_ENV}:"'\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\n\$ '
+# If not running interactively, don't do anything
+[[ "$-" == *i* ]] && PS1='\[\e]0;\w\a\]\n'"\[\e[35m\]${CONDA_DEFAULT_ENV}:"'\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\n\$ '
